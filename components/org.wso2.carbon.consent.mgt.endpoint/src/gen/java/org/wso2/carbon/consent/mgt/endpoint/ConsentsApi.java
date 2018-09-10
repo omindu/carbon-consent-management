@@ -326,6 +326,27 @@ public class ConsentsApi  {
     {
     return delegate.consentsPurposesPurposeIdGet(purposeId);
     }
+    @PUT
+    @Path("/purposes/{purposeId}")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Update a purpose\n", notes = "This API is used to update a purpose.\n", response = void.class)
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "OK"),
+        
+        @io.swagger.annotations.ApiResponse(code = 400, message = "Bad Request"),
+        
+        @io.swagger.annotations.ApiResponse(code = 401, message = "Unauthorized"),
+        
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Not Found"),
+        
+        @io.swagger.annotations.ApiResponse(code = 500, message = "Server Error") })
+
+    public Response consentsPurposesPurposeIdPut(@ApiParam(value = "Unique ID of the purpose",required=true ) @PathParam("purposeId")  String purposeId,
+    @ApiParam(value = "This represents the purpose element that needs to be updated." ,required=true ) PurposeRequestDTO purpose)
+    {
+    return delegate.consentsPurposesPurposeIdPut(purposeId,purpose);
+    }
     @DELETE
     @Path("/receipts/{receiptId}")
     @Consumes({ "application/json" })

@@ -46,13 +46,22 @@ public interface PurposeDAO {
     Purpose addPurpose(Purpose purpose) throws ConsentManagementException;
 
     /**
+     * Update a {@link Purpose}.
+     *
+     * @param purpose {@link Purpose} to update.
+     * @return Updated {@link Purpose}.
+     * @throws ConsentManagementException If error occurs while updating the {@link Purpose}.
+     */
+    Purpose updatePurpose(Purpose purpose) throws ConsentManagementException;
+
+    /**
      * Retrieve {@link Purpose} by ID.
      *
-     * @param id ID of the {@link Purpose} to retrieve.
+     * @param uniqueId ID of the {@link Purpose} to retrieve.
      * @return Purpose for the given ID.
      * @throws ConsentManagementException If error occurs while retrieving {@link Purpose}.
      */
-    Purpose getPurposeById(int id) throws ConsentManagementException;
+    Purpose getPurposeByUniqueId(int uniqueId) throws ConsentManagementException;
 
     /**
      * Get the {@link Purpose} corresponding to the input name.
@@ -66,6 +75,36 @@ public interface PurposeDAO {
      */
     Purpose getPurposeByName(String name, String group, String groupType, int tenantId) throws
             ConsentManagementException;
+
+    /**
+     * Retrieve {@link Purpose} by ID.
+     *
+     * @param purposeId ID of the {@link Purpose} to retrieve.
+     *
+     * @return Purpose for the given ID.
+     * @throws ConsentManagementException If error occurs while retrieving {@link Purpose}.
+     */
+    Purpose getPurpose(String purposeId, int version, int tenantId) throws ConsentManagementException;
+
+    /**
+     * Retrieve the latest version of a {@link Purpose} by ID.
+     *
+     * @param purposeId ID of the {@link Purpose} to retrieve.
+     *
+     * @return Purpose for the given ID.
+     * @throws ConsentManagementException If error occurs while retrieving {@link Purpose}.
+     */
+    Purpose getPurposeById(String purposeId, int tenantId) throws ConsentManagementException;
+
+    /**
+     * Retrieve {@link Purpose} by ID.
+     *
+     * @param purposeId ID of the {@link Purpose} to retrieve.
+     *
+     * @return Purpose for the given ID.
+     * @throws ConsentManagementException If error occurs while retrieving {@link Purpose}.
+     */
+    List<Purpose> getPurposes(String purposeId) throws ConsentManagementException;
 
     /**
      * List {@link Purpose} items for a given search criteria.
@@ -99,7 +138,7 @@ public interface PurposeDAO {
      * @return ID of the deleted {@link Purpose} if successful.
      * @throws ConsentManagementException If error occurs while deleting the {@link Purpose}
      */
-    int deletePurpose(int id) throws ConsentManagementException;
+    String deletePurpose(String id) throws ConsentManagementException;
 
     /**
      * Check whether the {@link Purpose} by ID is used in a receipt
@@ -107,5 +146,4 @@ public interface PurposeDAO {
      * @return
      */
     boolean isPurposeUsed(int id) throws ConsentManagementServerException;
-
 }

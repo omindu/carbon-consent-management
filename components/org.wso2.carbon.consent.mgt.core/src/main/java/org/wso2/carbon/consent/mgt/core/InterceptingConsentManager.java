@@ -41,7 +41,6 @@ import org.wso2.carbon.context.PrivilegedCarbonContext;
 import org.wso2.carbon.user.api.AuthorizationManager;
 import org.wso2.carbon.user.api.UserStoreException;
 import org.wso2.carbon.user.core.service.RealmService;
-import org.wso2.carbon.utils.multitenancy.MultitenantUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -56,52 +55,7 @@ import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.ErrorMe
 import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.GET_RECEIPT;
 import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.GROUP;
 import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.GROUP_TYPE;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_ADD_PII_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_ADD_PURPOSE;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_ADD_PURPOSE_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_ADD_RECEIPT;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_DELETE_PII_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_DELETE_PURPOSE;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_DELETE_PURPOSE_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_DELETE_RECEIPT;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PII_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PII_CATEGORY_BY_NAME;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PII_CATEGORY_LIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PURPOSE;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PURPOSE_BY_NAME;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PURPOSE_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PURPOSE_CATEGORY_BY_NAME;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PURPOSE_CATEGORY_LIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_PURPOSE_LIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_GET_RECEIPT;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_IS_PII_CATEGORY_EXIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_IS_PURPOSE_CATEGORY_EXIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_IS_PURPOSE_EXIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_LIST_RECEIPTS;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.POST_REVOKE_RECEIPT;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_ADD_PII_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_ADD_PURPOSE;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_ADD_PURPOSE_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_ADD_RECEIPT;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_DELETE_PII_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_DELETE_PURPOSE;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_DELETE_PURPOSE_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_DELETE_RECEIPT;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PII_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PII_CATEGORY_BY_NAME;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PII_CATEGORY_LIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PURPOSE;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PURPOSE_BY_NAME;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PURPOSE_CATEGORY;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PURPOSE_CATEGORY_BY_NAME;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PURPOSE_CATEGORY_LIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_PURPOSE_LIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_GET_RECEIPT;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_IS_PII_CATEGORY_EXIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_IS_PURPOSE_CATEGORY_EXIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_IS_PURPOSE_EXIST;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_LIST_RECEIPTS;
-import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.PRE_REVOKE_RECEIPT;
+import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.InterceptorConstants.*;
 import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.LIMIT;
 import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.LIST_RECEIPT;
 import static org.wso2.carbon.consent.mgt.core.constant.ConsentConstants.OFFSET;
@@ -165,7 +119,63 @@ public class InterceptingConsentManager implements ConsentManager {
                 .getResult();
     }
 
+    public Purpose updatePurpose(Purpose purpose) throws ConsentManagementException {
+
+        ConsentMessageContext context = new ConsentMessageContext();
+        ConsentInterceptorTemplate<Purpose, ConsentManagementException>
+                template = new ConsentInterceptorTemplate<>(consentMgtInterceptors, context);
+
+        return template.intercept(PRE_UPDATE_PURPOSE, properties -> properties.put(PURPOSE, purpose))
+                       .executeWith(new OperationDelegate<Purpose>() {
+                           @Override
+                           public Purpose execute() throws ConsentManagementException {
+
+                               return consentManager.updatePurpose(purpose);
+                           }
+                       })
+                       .intercept(POST_UPDATE_PURPOSE, properties -> properties.put(PURPOSE, purpose))
+                       .getResult();
+    }
+
     public Purpose getPurpose(int purposeId) throws ConsentManagementException {
+
+        ConsentMessageContext context = new ConsentMessageContext();
+        ConsentInterceptorTemplate<Purpose, ConsentManagementException>
+                template = new ConsentInterceptorTemplate<>(consentMgtInterceptors, context);
+
+        return template.intercept(PRE_GET_PURPOSE_BY_UNIQUE_ID, properties -> properties.put(PURPOSE_ID, purposeId))
+                .executeWith(new OperationDelegate<Purpose>() {
+                    @Override
+                    public Purpose execute() throws ConsentManagementException {
+
+                        return consentManager.getPurpose(purposeId);
+                    }
+                })
+                .intercept(POST_GET_PURPOSE_BY_UNIQUE_ID, properties -> properties.put(PURPOSE_ID, purposeId))
+                .getResult();
+    }
+
+    @Override
+    public Purpose getPurpose(String purposeId, int version) throws ConsentManagementException {
+
+        ConsentMessageContext context = new ConsentMessageContext();
+        ConsentInterceptorTemplate<Purpose, ConsentManagementException>
+                template = new ConsentInterceptorTemplate<>(consentMgtInterceptors, context);
+
+        return template.intercept(PRE_GET_PURPOSE_BY_ID, properties -> properties.put(PURPOSE_ID, purposeId))
+                .executeWith(new OperationDelegate<Purpose>() {
+                    @Override
+                    public Purpose execute() throws ConsentManagementException {
+
+                        return consentManager.getPurpose(purposeId, version);
+                    }
+                })
+                .intercept(POST_GET_PURPOSE_BY_ID, properties -> properties.put(PURPOSE_ID, purposeId))
+                .getResult();
+    }
+
+    @Override
+    public Purpose getPurpose(String purposeId) throws ConsentManagementException {
 
         ConsentMessageContext context = new ConsentMessageContext();
         ConsentInterceptorTemplate<Purpose, ConsentManagementException>
@@ -183,29 +193,68 @@ public class InterceptingConsentManager implements ConsentManager {
                 .getResult();
     }
 
-    public Purpose getPurposeByName(String name, String group, String groupType) throws ConsentManagementException {
+    @Override
+    public List<Purpose> getPurposes(String purposeId) throws ConsentManagementException {
 
         ConsentMessageContext context = new ConsentMessageContext();
-        ConsentInterceptorTemplate<Purpose, ConsentManagementException>
+        ConsentInterceptorTemplate<List<Purpose>, ConsentManagementException>
                 template = new ConsentInterceptorTemplate<>(consentMgtInterceptors, context);
 
-        return template.intercept(PRE_GET_PURPOSE_BY_NAME, properties -> {
+        return template.intercept(PRE_GET_PURPOSE_LIST_BY_ID, properties -> properties.put(PURPOSE_ID, purposeId))
+                .executeWith(new OperationDelegate<List<Purpose>>() {
+                    @Override
+                    public List<Purpose> execute() throws ConsentManagementException {
+
+                        return consentManager.getPurposes(purposeId);
+                    }
+                })
+                .intercept(POST_GET_PURPOSE_LIST_BY_ID, properties -> properties.put(PURPOSE_ID, purposeId))
+                .getResult();
+    }
+
+    public boolean isPurposeExists(String name, String group, String groupType) throws ConsentManagementException {
+
+        ConsentMessageContext context = new ConsentMessageContext();
+        ConsentInterceptorTemplate<Boolean, ConsentManagementException>
+                template = new ConsentInterceptorTemplate<>(consentMgtInterceptors, context);
+
+        return template.intercept(PRE_IS_PURPOSE_EXIST, properties -> {
             properties.put(PURPOSE_NAME, name);
             properties.put(GROUP, group);
             properties.put(GROUP_TYPE, groupType);
         })
-                .executeWith(new OperationDelegate<Purpose>() {
+                .executeWith(new OperationDelegate<Boolean>() {
                     @Override
-                    public Purpose execute() throws ConsentManagementException {
+                    public Boolean execute() throws ConsentManagementException {
 
-                        return consentManager.getPurposeByName(name, group, groupType);
+                        return consentManager.isPurposeExists(name, group, groupType);
                     }
                 })
-                .intercept(POST_GET_PURPOSE_BY_NAME, properties -> properties.put(PURPOSE_NAME, name))
+                .intercept(POST_IS_PURPOSE_EXIST, properties -> properties.put(PURPOSE_NAME, name))
                 .getResult();
     }
 
-    @Deactivate
+    public boolean isPurposeExists(String purposeId) throws ConsentManagementException {
+
+        ConsentMessageContext context = new ConsentMessageContext();
+        ConsentInterceptorTemplate<Boolean, ConsentManagementException>
+                template = new ConsentInterceptorTemplate<>(consentMgtInterceptors, context);
+
+        return template.intercept(PRE_IS_PURPOSE_VERSION_EXIST, properties -> {
+            properties.put(PURPOSE_ID, purposeId);
+        })
+                       .executeWith(new OperationDelegate<Boolean>() {
+                           @Override
+                           public Boolean execute() throws ConsentManagementException {
+
+                               return consentManager.isPurposeExists(purposeId);
+                           }
+                       })
+                       .intercept(POST_IS_PURPOSE_VERSION_EXIST, properties -> properties.put(PURPOSE_ID, purposeId))
+                       .getResult();
+    }
+
+    @Deprecated
     public List<Purpose> listPurposes(int limit, int offset) throws ConsentManagementException {
 
         ConsentMessageContext context = new ConsentMessageContext();
@@ -257,7 +306,7 @@ public class InterceptingConsentManager implements ConsentManager {
                        .getResult();
     }
 
-    public void deletePurpose(int purposeId) throws ConsentManagementException {
+    public void deletePurpose(String purposeId) throws ConsentManagementException {
 
         ConsentMessageContext context = new ConsentMessageContext();
         ConsentInterceptorTemplate<Void, ConsentManagementException>
@@ -273,28 +322,6 @@ public class InterceptingConsentManager implements ConsentManager {
                     }
                 })
                 .intercept(POST_DELETE_PURPOSE, properties -> properties.put(PURPOSE_ID, purposeId));
-    }
-
-    public boolean isPurposeExists(String name, String group, String groupType) throws ConsentManagementException {
-
-        ConsentMessageContext context = new ConsentMessageContext();
-        ConsentInterceptorTemplate<Boolean, ConsentManagementException>
-                template = new ConsentInterceptorTemplate<>(consentMgtInterceptors, context);
-
-        return template.intercept(PRE_IS_PURPOSE_EXIST, properties -> {
-            properties.put(PURPOSE_NAME, name);
-            properties.put(GROUP, group);
-            properties.put(GROUP_TYPE, groupType);
-        })
-                .executeWith(new OperationDelegate<Boolean>() {
-                    @Override
-                    public Boolean execute() throws ConsentManagementException {
-
-                        return consentManager.isPurposeExists(name, group, groupType);
-                    }
-                })
-                .intercept(POST_IS_PURPOSE_EXIST, properties -> properties.put(PURPOSE_NAME, name))
-                .getResult();
     }
 
     public PurposeCategory addPurposeCategory(PurposeCategory purposeCategory) throws ConsentManagementException {
@@ -466,6 +493,28 @@ public class InterceptingConsentManager implements ConsentManager {
                     }
                 })
                 .intercept(POST_GET_PII_CATEGORY, properties -> properties.put(PII_CATEGORY_ID, piiCategoryId))
+                .getResult();
+    }
+
+    public Purpose getPurposeByName(String name, String group, String groupType) throws ConsentManagementException {
+
+        ConsentMessageContext context = new ConsentMessageContext();
+        ConsentInterceptorTemplate<Purpose, ConsentManagementException>
+                template = new ConsentInterceptorTemplate<>(consentMgtInterceptors, context);
+
+        return template.intercept(PRE_GET_PURPOSE_BY_NAME, properties -> {
+            properties.put(PURPOSE_NAME, name);
+            properties.put(GROUP, group);
+            properties.put(GROUP_TYPE, groupType);
+        })
+                .executeWith(new OperationDelegate<Purpose>() {
+                    @Override
+                    public Purpose execute() throws ConsentManagementException {
+
+                        return consentManager.getPurposeByName(name, group, groupType);
+                    }
+                })
+                .intercept(POST_GET_PURPOSE_BY_NAME, properties -> properties.put(PURPOSE_NAME, name))
                 .getResult();
     }
 

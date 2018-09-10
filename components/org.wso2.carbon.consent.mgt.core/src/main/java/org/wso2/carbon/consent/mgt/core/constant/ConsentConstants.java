@@ -197,8 +197,12 @@ public class ConsentConstants {
         ERROR_CODE_PURPOSE_GROUP_REQUIRED("CM_00086", "Purpose group is required."),
         ERROR_CODE_PURPOSE_GROUP_TYPE_REQUIRED("CM_00087", "Purpose group type is required."),
         ERROR_CODE_PURPOSE_PII_CONSTRAINT_REQUIRED("CM_00088", "Purpose PII category should be specified mandatory or" +
-                                                               " not for PII category ID: %s.");
-
+                                                               " not for PII category ID: %s."),
+        ERROR_CODE_LIST_PURPOSE_BY_ID("CM_00089", "Error occurred while listing purposes by ID: %s."),
+        ERROR_CODE_UPDATE_PURPOSE("CM_00090", "Error occurred while updating the purposes: %s."),
+        ERROR_CODE_GET_PURPOSE_VERSION("CM_00091", "Error occurred while retrieving latest version of purpose: %s."),
+        ERROR_CODE_UPDATE_PURPOSE_PII_ASSOC("CM_00092", "Error occurred while updating Purpose to PII Category " +
+                                                 "association for purpose: %s");
         private final String code;
         private final String message;
 
@@ -266,16 +270,26 @@ public class ConsentConstants {
 
         public static final String PRE_ADD_PURPOSE = "PRE_ADD_PURPOSE";
         public static final String POST_ADD_PURPOSE = "POST_ADD_PURPOSE";
+        public static final String PRE_UPDATE_PURPOSE = "PRE_UPDATE_PURPOSE";
+        public static final String POST_UPDATE_PURPOSE = "POST_UPDATE_PURPOSE";
         public static final String PRE_GET_PURPOSE = "PRE_GET_PURPOSE";
         public static final String POST_GET_PURPOSE = "POST_GET_PURPOSE";
+        public static final String PRE_GET_PURPOSE_BY_ID = "PRE_GET_PURPOSE_BY_ID";
+        public static final String POST_GET_PURPOSE_BY_ID = "POST_GET_PURPOSE_BY_ID";
+        public static final String PRE_GET_PURPOSE_BY_UNIQUE_ID = "PRE_GET_PURPOSE_BY_UNIQUE_ID";
+        public static final String POST_GET_PURPOSE_BY_UNIQUE_ID = "POST_GET_PURPOSE_BY_UNIQUE_ID";
         public static final String PRE_GET_PURPOSE_BY_NAME = "PRE_GET_PURPOSE_BY_NAME";
         public static final String POST_GET_PURPOSE_BY_NAME = "POST_GET_PURPOSE_BY_NAME";
         public static final String PRE_GET_PURPOSE_LIST = "PRE_GET_PURPOSE_LIST";
         public static final String POST_GET_PURPOSE_LIST = "POST_GET_PURPOSE_LIST";
+        public static final String PRE_GET_PURPOSE_LIST_BY_ID = "PRE_GET_PURPOSE_LIST_BY_ID";
+        public static final String POST_GET_PURPOSE_LIST_BY_ID = "POST_GET_PURPOSE_LIST_BY_ID";
         public static final String PRE_DELETE_PURPOSE = "PRE_DELETE_PURPOSE";
         public static final String POST_DELETE_PURPOSE = "POST_DELETE_PURPOSE";
         public static final String PRE_IS_PURPOSE_EXIST = "PRE_IS_PURPOSE_EXIST";
         public static final String POST_IS_PURPOSE_EXIST = "POST_IS_PURPOSE_EXIST";
+        public static final String PRE_IS_PURPOSE_VERSION_EXIST = "PRE_IS_PURPOSE_VERSION_EXIST";
+        public static final String POST_IS_PURPOSE_VERSION_EXIST = "POST_IS_PURPOSE_VERSION_EXIST";
 
         public static final String PRE_ADD_PURPOSE_CATEGORY = "PRE_ADD_PURPOSE_CATEGORY";
         public static final String POST_ADD_PURPOSE_CATEGORY = "POST_ADD_PURPOSE_CATEGORY";

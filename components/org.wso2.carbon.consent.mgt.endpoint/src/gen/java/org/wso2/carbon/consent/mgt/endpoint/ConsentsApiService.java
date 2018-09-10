@@ -40,6 +40,7 @@ public abstract class ConsentsApiService {
     public abstract Response consentsPurposesPost(PurposeRequestDTO purpose);
     public abstract Response consentsPurposesPurposeIdDelete(String purposeId);
     public abstract Response consentsPurposesPurposeIdGet(String purposeId);
+    public abstract Response consentsPurposesPurposeIdPut(String purposeId,PurposeRequestDTO purpose);
     public abstract Response consentsReceiptsReceiptIdDelete(String receiptId);
     public abstract Response consentsReceiptsReceiptIdGet(String receiptId);
 }

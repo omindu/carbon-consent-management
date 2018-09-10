@@ -163,8 +163,8 @@ public class ConsentsApiServiceImpl extends ConsentsApiService {
     @Override
     public Response consentsPost(ConsentRequestDTO consent) {
 
-        ReceiptInput receiptInput = getReceiptInput(consent);
         try {
+            ReceiptInput receiptInput = getReceiptInput(consent);
             AddReceiptResponse addReceiptResponse = getConsentManager().addConsent(receiptInput);
             return Response.ok()
                     .entity(addReceiptResponse)
@@ -282,7 +282,7 @@ public class ConsentsApiServiceImpl extends ConsentsApiService {
     public Response consentsPurposesPurposeIdDelete(String purposeId) {
 
         try {
-            getConsentManager().deletePurpose(Integer.parseInt(purposeId));
+            getConsentManager().deletePurpose(purposeId);
             return Response.ok().build();
         } catch (ConsentManagementClientException e) {
             return handleBadRequestResponse(e);
@@ -297,9 +297,27 @@ public class ConsentsApiServiceImpl extends ConsentsApiService {
     public Response consentsPurposesPurposeIdGet(String purposeId) {
 
         try {
-            Purpose purpose = getConsentManager().getPurpose(Integer.parseInt(purposeId));
+            Purpose purpose = getConsentManager().getPurpose(purposeId);
             PurposeGetResponseDTO purposeListResponse = getPurposeListResponse(purpose);
             return Response.ok().entity(purposeListResponse).build();
+        } catch (ConsentManagementClientException e) {
+            return handleBadRequestResponse(e);
+        } catch (ConsentManagementException e) {
+            return handleServerErrorResponse(e);
+        } catch (Throwable throwable) {
+            return handleUnexpectedServerError(throwable);
+        }
+    }
+
+    @Override
+    public Response consentsPurposesPurposeIdPut(String purposeId, PurposeRequestDTO purpose) {
+
+        try {
+            PurposeGetResponseDTO response = updatePurpose(purposeId, purpose);
+            return Response.ok()
+                           .entity(response)
+                           .location(getPurposeLocationURI(response))
+                           .build();
         } catch (ConsentManagementClientException e) {
             return handleBadRequestResponse(e);
         } catch (ConsentManagementException e) {
@@ -465,6 +483,16 @@ public class ConsentsApiServiceImpl extends ConsentsApiService {
 
         Purpose purposeRequest = getPurposeRequest(purpose);
         Purpose purposeResponse = getConsentManager().addPurpose(purposeRequest);
+        return getPurposeListResponse(purposeResponse);
+    }
+
+    private PurposeGetResponseDTO updatePurpose(String purposeId, PurposeRequestDTO purpose) throws
+            ConsentManagementException {
+
+        Purpose purposeRequest = getPurposeRequest(purpose);
+        purposeRequest.setPurposeId(purposeId);
+
+        Purpose purposeResponse = getConsentManager().updatePurpose(purposeRequest);
         return getPurposeListResponse(purposeResponse);
     }
 
